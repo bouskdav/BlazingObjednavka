@@ -1,0 +1,84 @@
+﻿@page "/select-login"
+@inject HttpClient HttpClient
+@inject OrderState OrderState
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<div class="main">
+    <AuthorizeView>
+        <Authorizing>
+            <text>...</text>
+        </Authorizing>
+        <Authorized>
+            <img src="img/user.svg" />
+            <div>
+                <span class="username">@context.User.Identity.Name</span>
+                <a class="sign-out" href="user/signout">Odhlásit</a>
+            </div>
+        </Authorized>
+        <NotAuthorized>
+            <h3>Vyberte službu pro přihlášení</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <a class="btn btn-block btn-social btn-twitter btn-lg" href="user/signin?provider=twitter&redirectUri=/checkout">
+                        <span class="fa fa-twitter"></span> Přihlásit přes<br />Twitter
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-block btn-social btn-facebook btn-lg" href="user/signin?provider=facebook&redirectUri=/checkout">
+                        <span class="fa fa-facebook"></span> Přihlásit přes<br />Facebook
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-block btn-social btn-google btn-lg" href="user/signin?provider=google&redirectUri=/checkout">
+                        <span class="fa fa-google"></span> Přihlásit přes<br />Google
+                    </a>
+                </div>
+            </div>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+<div class="sidebar">
+    @if (Order.Pizzas.Any())
+    {
+        <div class="order-contents">
+            <h2>Vaše objednávka</h2>
+
+            @foreach (var configuredPizza in Order.Pizzas)
+            {
+                <ConfiguredPizzaItem Pizza="configuredPizza" OnRemoved="@(() => RemovePizza(configuredPizza))" />
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-cart">Zatím nemáte<br>nic objednáno</div>
+    }
+
+    <div class="order-total @(Order.Pizzas.Any() ? "" : "hidden")">
+        Celkem:
+        <span class="total-price">@Order.GetFormattedTotalPrice()</span>
+        <a href="checkout" class="btn btn-warning" disabled="@(Order.Pizzas.Count == 0)">
+            Objednat >
+        </a>
+    </div>
+</div>
+
+@code {
+    List<BlazingObjednavka.Shared.PizzaSpecial> specials;
+    BlazingObjednavka.Shared.Order Order => OrderState.Order;
+
+    protected async override Task OnInitializedAsync()
+    {
+        specials = await HttpClient.GetJsonAsync<List<BlazingObjednavka.Shared.PizzaSpecial>>("specials");
+    }
+
+    async Task RemovePizza(BlazingObjednavka.Shared.Pizza configuredPizza)
+    {
+        if (await JS.Confirm($"Remove {configuredPizza.Special.Name} pizza from the order?"))
+        {
+            OrderState.RemoveConfiguredPizza(configuredPizza);
+        }
+    }
+}

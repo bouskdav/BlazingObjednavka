@@ -6,13 +6,43 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Templates\Map.razor" />
+    <Content Remove="wwwroot\deliveryMap.js" />
+    <Content Remove="wwwroot\leaflet\images\layers-2x.png" />
+    <Content Remove="wwwroot\leaflet\images\layers.png" />
+    <Content Remove="wwwroot\leaflet\images\marker-icon-2x.png" />
+    <Content Remove="wwwroot\leaflet\images\marker-icon.png" />
+    <Content Remove="wwwroot\leaflet\images\marker-shadow.png" />
+    <Content Remove="wwwroot\leaflet\leaflet.css" />
+    <Content Remove="wwwroot\leaflet\leaflet.js" />
+    <Content Remove="wwwroot\localStorage.js" />
+    <Content Remove="wwwroot\pushNotifications.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.2.0-preview1.20073.1" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.2.0-preview1.20073.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.2.0-preview1.20073.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview1.20073.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="3.1.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\BlazingObjednavka.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shared\Map.razor" />
+    <None Include="Templates\TemplatedDialog.razor" />
+    <None Include="Templates\TemplatedList.razor" />
+    <None Include="wwwroot\deliveryMap.js" />
+    <None Include="wwwroot\leaflet\images\layers-2x.png" />
+    <None Include="wwwroot\leaflet\images\layers.png" />
+    <None Include="wwwroot\leaflet\images\marker-icon-2x.png" />
+    <None Include="wwwroot\leaflet\images\marker-icon.png" />
+    <None Include="wwwroot\leaflet\images\marker-shadow.png" />
+    <None Include="wwwroot\leaflet\leaflet.css" />
+    <None Include="wwwroot\leaflet\leaflet.js" />
+    <None Include="wwwroot\localStorage.js" />
+    <None Include="wwwroot\pushNotifications.js" />
   </ItemGroup>
 
 </Project>

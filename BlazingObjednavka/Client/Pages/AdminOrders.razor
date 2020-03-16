@@ -1,0 +1,36 @@
+﻿@page "/adminorders"
+@inject HttpClient HttpClient
+@attribute [Authorize]
+
+<div class="main">
+    <TemplatedList Loader="LoadOrders" ListGroupClass="orders-list">
+        <Loading>Nahrávám...</Loading>
+        <Empty>
+            <h2>Žádná nevyřízená objednávka!</h2>
+        </Empty>
+        <Item Context="item">
+            <div class="col">
+                <h5>@item.Order.CreatedTime.ToLongDateString()</h5>
+                Položky:
+                <strong>@item.Order.Pizzas.Count()</strong>;
+                Cena celkem:
+                <strong>@item.Order.GetFormattedTotalPrice() Kč</strong>
+            </div>
+            <div class="col">
+                Stav: <strong>@item.StatusText</strong>
+            </div>
+            <div class="col flex-grow-0">
+                <a href="adminorders/@item.Order.OrderId" class="btn btn-success">
+                    Detaily objednávky &gt;
+                </a>
+            </div>
+        </Item>
+    </TemplatedList>
+</div>
+
+@code {
+    async Task<List<BlazingObjednavka.Shared.OrderWithStatus>> LoadOrders()
+    {
+        return await HttpClient.GetJsonAsync<List<BlazingObjednavka.Shared.OrderWithStatus>>("orders/adminorders");
+    }
+}

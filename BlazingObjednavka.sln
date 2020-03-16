@@ -3,15 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingObjednavka.Server", "BlazingObjednavka\Server\BlazingObjednavka.Server.csproj", "{2F25C87C-60E7-41F6-A47C-D2AC49094FA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingObjednavka.Server", "BlazingObjednavka\Server\BlazingObjednavka.Server.csproj", "{2F25C87C-60E7-41F6-A47C-D2AC49094FA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingObjednavka.Client", "BlazingObjednavka\Client\BlazingObjednavka.Client.csproj", "{9FD686B3-F88A-4E21-9BBC-9F3446CFFE36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingObjednavka.Client", "BlazingObjednavka\Client\BlazingObjednavka.Client.csproj", "{9FD686B3-F88A-4E21-9BBC-9F3446CFFE36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingObjednavka.Shared", "BlazingObjednavka\Shared\BlazingObjednavka.Shared.csproj", "{5355E0E9-7E53-4743-A780-E9C4E47974BC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingObjednavka.ComponentsLibrary", "BlazingObjednavka.ComponentsLibrary\BlazingObjednavka.ComponentsLibrary.csproj", "{C4C2612A-2F34-42DA-A7B4-E7E0D41FF7C1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingObjednavka.Components", "BlazingObjednavka.Components\BlazingObjednavka.Components.csproj", "{69311B60-8950-41CC-BD10-E8353E9EE6AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingObjednavka.Shared", "BlazingObjednavka\Shared\BlazingObjednavka.Shared.csproj", "{5355E0E9-7E53-4743-A780-E9C4E47974BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +27,6 @@ Global
 		{5355E0E9-7E53-4743-A780-E9C4E47974BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5355E0E9-7E53-4743-A780-E9C4E47974BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5355E0E9-7E53-4743-A780-E9C4E47974BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4C2612A-2F34-42DA-A7B4-E7E0D41FF7C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4C2612A-2F34-42DA-A7B4-E7E0D41FF7C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4C2612A-2F34-42DA-A7B4-E7E0D41FF7C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4C2612A-2F34-42DA-A7B4-E7E0D41FF7C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69311B60-8950-41CC-BD10-E8353E9EE6AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69311B60-8950-41CC-BD10-E8353E9EE6AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69311B60-8950-41CC-BD10-E8353E9EE6AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69311B60-8950-41CC-BD10-E8353E9EE6AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

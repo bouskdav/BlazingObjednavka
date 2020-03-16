@@ -1,7 +1,84 @@
 ﻿@page "/"
+@inject HttpClient HttpClient
+@inject OrderState OrderState
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
 
-<h1>Hello, world!</h1>
+<div class="main">
+    <ul class="pizza-cards">
+        @if (specials != null)
+        {
+            @foreach (var special in specials)
+            {
+                <li @onclick="@(() => OrderState.ShowConfigurePizzaDialog(special))" style="background-image: url('@special.ImageUrl')">
+                    <div class="pizza-info">
+                        <span class="title">@special.Name</span>
+                        @special.Description
+                        <span class="price">@special.GetFormattedBasePrice()</span>
+                    </div>
+                </li>
+            }
+        }
+    </ul>
 
-Welcome to your new app.
+    <div class="cart-logo @(CollapseSidebar ? "" : "active")">
+        <a @onclick="@(() => ToggleSidebar())"><i class="fa fa-shopping-cart fa-2x"></i></a>
+    </div>
+</div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="sidebar @(CollapseSidebar ? "" : "active")">
+    @if (Order.Pizzas.Any())
+    {
+        <div class="order-contents">
+            <h2>Vaše objednávka</h2>
+
+            @foreach (var configuredPizza in Order.Pizzas)
+            {
+                <ConfiguredPizzaItem Pizza="configuredPizza" OnRemoved="@(() => RemovePizza(configuredPizza))" />
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-cart">Zatím nemáte<br>nic objednáno</div>
+    }
+
+    <div class="order-total @(Order.Pizzas.Any() ? "" : "hidden")">
+        Celkem:
+        <span class="total-price">@Order.GetFormattedTotalPrice()</span>
+        <a href="checkout" class="btn btn-warning" disabled="@(Order.Pizzas.Count == 0)">
+            Objednat >
+        </a>
+    </div>
+</div>
+
+<TemplatedDialog Show="OrderState.ShowingConfigureDialog">
+    <ConfigurePizzaDialog
+        Pizza="OrderState.ConfiguringPizza"
+        OnCancel="OrderState.CancelConfigurePizzaDialog"
+        OnConfirm="OrderState.ConfirmConfigurePizzaDialog" />
+</TemplatedDialog>
+
+@code {
+    List<BlazingObjednavka.Shared.PizzaSpecial> specials;
+    BlazingObjednavka.Shared.Order Order => OrderState.Order;
+    bool CollapseSidebar = true;
+
+    protected async override Task OnInitializedAsync()
+    {
+        specials = await HttpClient.GetJsonAsync<List<BlazingObjednavka.Shared.PizzaSpecial>>("specials");
+    }
+
+    async Task RemovePizza(BlazingObjednavka.Shared.Pizza configuredPizza)
+    {
+        if (await JS.Confirm($"Opravdu chcete odstranit {configuredPizza.Special.Name} z objednávky?"))
+        {
+            OrderState.RemoveConfiguredPizza(configuredPizza);
+        }
+    }
+
+    async Task ToggleSidebar()
+    {
+        CollapseSidebar = !CollapseSidebar;
+    }
+}

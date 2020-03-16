@@ -1,0 +1,72 @@
+﻿@inject HttpClient HttpClient
+
+@foreach (var pizza in Order.Pizzas)
+{
+    <p>
+        <strong>
+            @(pizza.Size)"
+            @pizza.Special.Name
+            (@pizza.GetFormattedTotalPrice() Kč)
+        </strong>
+    </p>
+
+    <ul>
+        @foreach (var topping in pizza.Toppings)
+        {
+            <li>+ @topping.Topping.Name</li>
+        }
+    </ul>
+}
+
+<p>
+    <strong>
+        Cena celkem:
+        @Order.GetFormattedTotalPrice() Kč
+    </strong>
+</p>
+
+<div>
+    @if (!Order.CanceledTime.HasValue)
+    {
+        if (!Order.PreparedTime.HasValue)
+        {
+            <button type="button" class="btn btn-warning" @onclick="@(() => SetPrepared(Order))">Předáno k dopravě</button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-warning" @onclick="@(() => SetDelivered(Order))">Doručeno</button>
+        }
+
+        <button type="button" class="btn btn-warning" @onclick="@(() => SetCanceled(Order))">Storno</button>
+    }
+    else
+    {
+        <button type="button" class="btn btn-warning" @onclick="@(() => SetNotCanceled(Order))">Zrušit storno</button>
+    }
+
+</div>
+
+@code {
+    [Parameter]
+    public BlazingObjednavka.Shared.Order Order { get; set; }
+
+    async Task<bool> SetPrepared(BlazingObjednavka.Shared.Order order)
+    {
+        return await HttpClient.GetJsonAsync<bool>("orders/setprepared/" + order.OrderId);
+    }
+
+    async Task<bool> SetDelivered(BlazingObjednavka.Shared.Order order)
+    {
+        return await HttpClient.GetJsonAsync<bool>("orders/setdelivered/" + order.OrderId);
+    }
+
+    async Task<bool> SetCanceled(BlazingObjednavka.Shared.Order order)
+    {
+        return await HttpClient.GetJsonAsync<bool>("orders/setcanceled/" + order.OrderId);
+    }
+
+    async Task<bool> SetNotCanceled(BlazingObjednavka.Shared.Order order)
+    {
+        return await HttpClient.GetJsonAsync<bool>("orders/setnotcanceled/" + order.OrderId);
+    }
+}

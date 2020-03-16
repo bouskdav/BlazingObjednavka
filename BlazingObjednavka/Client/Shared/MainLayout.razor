@@ -1,15 +1,28 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="sidebar">
-    <NavMenu />
+<div class="top-bar">
+    @*<img class="logo" src="img/logo.svg" />*@
+    @*<img class="logo img-fluid" src="/img/strecha_upraveno.png" />*@
+    <div class="logo logo-large" style="line-height: 5rem;">
+        Bistro Střecha
+    </div>
+    <div class="logo logo-small">
+        <img style="height: 5rem;" src="/img/bistro_strecha_icon.png" />
+    </div>
+
+    <NavLink href="" class="nav-tab" Match="NavLinkMatch.All">
+        <img src="img/pizza-slice.svg" />
+        <div>Objednat</div>
+    </NavLink>
+
+    <NavLink href="myorders" class="nav-tab">
+        <img src="img/bike.svg" />
+        <div>Mé objednávky</div>
+    </NavLink>
+
+    <LoginDisplay />
 </div>
 
-<div class="main">
-    <div class="top-row px-4">
-        <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-    </div>
-
-    <div class="content px-4">
-        @Body
-    </div>
+<div class="content">
+    @Body
 </div>
