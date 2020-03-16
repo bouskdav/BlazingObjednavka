@@ -26,8 +26,8 @@ namespace BlazingObjednavka.Server
         {
             services.AddMvc();
 
-            //services.AddDbContext<PizzaStoreContext>(options =>
-            //    options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<PizzaStoreContext>(options =>
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddResponseCompression(opts =>
             {
