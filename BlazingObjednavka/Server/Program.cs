@@ -9,8 +9,10 @@ namespace BlazingObjednavka.Server
     {
         public static void Main(string[] args)
         {
+            // localhost
             //BuildWebHost(args).Run();
 
+            // hosting environment
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseUrls("http://*:5000")

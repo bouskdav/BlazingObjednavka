@@ -23,6 +23,8 @@ namespace BlazingObjednavka.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<List<PizzaSpecial>>> GetSpecials()
         {
+            _db.Database.EnsureCreated();
+
             return (await _db.Specials.Where(i => i.Active).ToListAsync())
                 .OrderBy(s => s.Group)
                 //.ThenByDescending(s => s.BasePrice)
